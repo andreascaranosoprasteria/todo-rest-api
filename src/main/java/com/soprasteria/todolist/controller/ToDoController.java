@@ -32,7 +32,7 @@ public class ToDoController {
 	}
 
 	// aggiunge una task
-	@PostMapping("/add")
+	@PostMapping("/todo/add")
 	public ToDo createTask(@RequestBody ToDo element) {
 		return repository.save(element);
 	}
@@ -55,7 +55,7 @@ public class ToDoController {
 
 	
 	//cambio descrizione alla task
-	@PutMapping("/todo/update-description/{id}") 
+	@PutMapping("/todo/update-task/{id}") 
 	public ToDo updateTask(
 			@PathVariable (value = "id") int id,
 			@RequestBody ToDo todo) {
@@ -63,6 +63,7 @@ public class ToDoController {
 		if(t.isPresent()) {
 			ToDo t1=t.get();
 			t1.setDescription(todo.getDescription());
+			t1.setDone(todo.isDone());
 			return repository.save(t1);
 		} else
 			return null;
@@ -75,7 +76,7 @@ public class ToDoController {
 		Optional<ToDo> t=repository.findById(id);
 		if(t.isPresent()) {
 			ToDo t1=t.get();
-			t1.setDone(true);
+			t1.setDone(!t1.isDone());
 			return repository.save(t1);
 		} else
 			return null;
