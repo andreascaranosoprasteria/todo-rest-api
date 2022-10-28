@@ -69,10 +69,9 @@ public class ToDoController {
 	}
 	
 	//dichiaro come fatto la task
-	@PutMapping("/todo/mark-donedescription/{id}") 
+	@PutMapping("/todo/mark-done/{id}") 
 	public ToDo markAsDone(
-			@PathVariable (value = "id") int id,
-			@RequestBody ToDo todo) {
+			@PathVariable (value = "id") int id) {
 		Optional<ToDo> t=repository.findById(id);
 		if(t.isPresent()) {
 			ToDo t1=t.get();
